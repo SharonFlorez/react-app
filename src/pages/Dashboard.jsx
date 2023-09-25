@@ -1,8 +1,12 @@
+import { Box, Typography } from "@mui/material";
+
 const Dashboard = () => {
   return (
-    <div className="p-3">
-      <h1>Dashboard</h1>
-    </div>
+    <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
+      <Typography variant="h5" component="h1">
+        Dashboard
+      </Typography>
+    </Box>
   );
 };
 

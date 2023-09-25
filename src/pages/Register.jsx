@@ -5,6 +5,10 @@ import { register } from "../config/firebase";
 import { useUserContext } from "../context/UserContext";
 import { useRedirectActiveUser } from "../hooks/useRedirectActiveUser";
 
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import { LoadingButton } from "@mui/lab";
+
 const Register = () => {
   const { user } = useUserContext();
   useRedirectActiveUser(user, "/dashboard");
@@ -36,8 +40,15 @@ const Register = () => {
   });
 
   return (
-    <div className="p-3">
-      <h1>Register</h1>
+    <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
+      <Avatar sx={{ mx: "auto", bgcolor: "#69c1f7", marginBottom: 2 }}>
+        <PersonIcon />
+      </Avatar>
+
+      <Typography variant="h5" component="h1">
+        Crear cuenta
+      </Typography>
+
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={onSubmit}
@@ -52,40 +63,60 @@ const Register = () => {
           handleBlur,
           isSubmitting,
         }) => (
-          <form className="d-flex gap-2 flex-column" onSubmit={handleSubmit}>
-            <input
+          <Box
+            onSubmit={handleSubmit}
+            sx={{
+              padding: "24px 8px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 3,
+            }}
+            component="form"
+          >
+            <TextField
               type="text"
-              placeholder="Ingrese email"
+              placeholder="example@example.com"
               value={values.email}
               onChange={handleChange}
               name="email"
               onBlur={handleBlur}
+              id="email"
+              label="Ingrese email"
+              fullWidth
+              error={errors.email && touched.email}
+              helperText={errors.email && touched.email && errors.email}
             />
-            {errors.email && touched.email && errors.email}
-            <input
+            <TextField
               type="password"
               placeholder="Ingrese contraseña"
               value={values.password}
               onChange={handleChange}
               name="password"
               onBlur={handleBlur}
+              id="password"
+              label="Ingrese contraseña"
+              fullWidth
+              error={errors.password && touched.password}
+              helperText={
+                errors.password && touched.password && errors.password
+              }
             />
-            {errors.password && touched.password && errors.password}
-            <button
-              className="btn btn-warning"
+            <LoadingButton
               type="submit"
               disabled={isSubmitting}
+              loading={isSubmitting}
+              variant="contained"
+              fullWidth
             >
               Register
-            </button>
-            <p className="my-4">
-              ¿Ya tienes una cuenta?
-              <NavLink to="/">Inicia sesión</NavLink>
-            </p>
-          </form>
+            </LoadingButton>
+            <Button fullWidth component={NavLink} to="/">
+              ¿Ya tienes una cuenta? Inicia sesión
+            </Button>
+          </Box>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 };
 

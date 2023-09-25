@@ -1,8 +1,8 @@
 const Home = () => {
   return (
-    <div className="p-3">
+    <div>
       <h1>Home</h1>
-      <h2 className="text-success mt-5">Bievenid@</h2>
+      <h2>Bievenid@</h2>
     </div>
   );
 };
